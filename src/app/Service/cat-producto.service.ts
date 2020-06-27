@@ -9,7 +9,7 @@ import{RutaMvc} from './General';
 export class CatProductoService {
   constructor(private http:HttpClient) { }
   obtenerCategoria(){
-    return this.http.get(RutaMvc+"listarCatProducto");
+    return this.http.get(RutaMvc+"listarCatProducto"); 
   }
   registrarCatProducto(categoria:any):Observable<any>{
     return this.http.post(RutaMvc+"mntCatProducto",categoria,
