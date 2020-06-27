@@ -18,4 +18,7 @@ export class CatProductoService {
   updateCatProducto(categoria:any):Observable<any>{
     return this.http.put(RutaMvc+"updtCatProducto",categoria,{responseType: 'text'});
   }
+  deleteCatProducto(categoria:any):Observable<any>{
+    return this.http.put(RutaMvc+"deleteCatProducto",categoria,{responseType: 'text'});
+  }
 } 

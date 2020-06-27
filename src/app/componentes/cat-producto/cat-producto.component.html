@@ -16,8 +16,6 @@
                   <th class="text-center">Nombre</th>
                   <th class="text-center">Estado</th>
                   <th></th>
-                  <th></th>
-                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -29,19 +27,16 @@
                   <th class="text-center">{{categoria.nombre}}</th>
                   <th class="text-center">{{categoria.estado}}</th>
                   <th class="text-center">
-                    <button class="btn btn-warning" (click)="obtenerDatos(categoria)"></button></th>
-                  <th class="text-center"><button class="btn btn-danger"></button></th>
-                  <th class="text-center">
-                    <button class="btn btn-info"></button>
+                    <button class="btn btn-warning btn-xs" (click)="obtenerDatos(categoria)" title="actualizar" style="margin-right: 5px;"><i class="fas fa-pen-alt"></i></button>
+                    <button title="eliminar" class="btn btn-danger btn-xs" style="margin-right: 5px;" (click)="ModalEliminacion(modalEliminacion,categoria)"><i class="fas fa-trash-alt"></i></button>
+                    <button class="btn btn-info btn-xs" title="activar" style="margin-right: 5px;"><i class="fas fa-check-square"></i></button>
                   </th>
                 </tr>
               </tbody>
             </table>
             <pagination-controls id="foo" (pageChange)="p = $event"></pagination-controls>
           </div>
-          <!-- /.card-body -->
         </div>
-        <!-- /.card -->    
     </div>
     <div class="col-md-3" style="float: left">
         <div class="card">
@@ -62,15 +57,32 @@
                   <span>Estado:</span>
                   <div class="form-group">
                     <input [disabled]="disabledInput" type="checkbox" [(ngModel)]="MntCatProducto.estado"  class="form-control" style="float: left;width: 10%;height: 15px;margin-top: 5px;">
-                    <!--[(ngModel)]="MntCatProducto.estado"-->
                     <span>Activo</span>
                   </div>
                 </div>
                 <div class="col-md-12" style="margin-bottom: 10px;">
-                <button class="btn btn-warning btn-block">Actualizar</button>
+                  <button *ngIf="disabledRegistrar" type="button" (click)="registrarCategoria(MntCatProducto)" class="btn btn-success btn-block">Registrar</button>
+                  <button *ngIf="disabledActualizar" type="button" (click)="actualizarCategoria(MntCatProducto)" class="btn btn-warning btn-block">Actualizar</button>
+                  <button *ngIf="disabledCancelar" type="button" class="btn btn-secondary btn-block" (click)="cancelar()">Cancelar</button>
                 </div>
                </div>
             </div>
         </div>
     </div>
 </div>
+
+<ng-template #modalEliminacion>
+  <div class="modal-header" style="background: #fa5252;">
+    <h4 class="modal-title pull-left" style="color: white;">Eliminación</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <span>¿Esta seguro de eliminar la categoria seleccionada ({{nombreActividad}})?</span>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="deleteCategoria()">Aceptar</button>
+    <button type="button" class="btn btn-light" (click)="modalRef.hide()">Cancelar</button>
+  </div>
+</ng-template>
