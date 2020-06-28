@@ -12,13 +12,15 @@ export class CatProductoService {
     return this.http.get(RutaMvc+"listarCatProducto"); 
   }
   registrarCatProducto(categoria:any):Observable<any>{
-    return this.http.post(RutaMvc+"mntCatProducto",categoria,
-    {responseType: 'text'});
+    return this.http.post(RutaMvc+"mntCatProducto",categoria,{responseType: 'text'});
   }
   updateCatProducto(categoria:any):Observable<any>{
     return this.http.put(RutaMvc+"updtCatProducto",categoria,{responseType: 'text'});
   }
   deleteCatProducto(categoria:any):Observable<any>{
     return this.http.put(RutaMvc+"deleteCatProducto",categoria,{responseType: 'text'});
+  }
+  activarCatProducto(categoria:any):Observable<any>{
+    return this.http.put(RutaMvc+"activeCatProducto",categoria,{responseType: 'text'});
   }
 } 

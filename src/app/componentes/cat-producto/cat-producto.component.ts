@@ -44,6 +44,10 @@ export class CatProductoComponent implements OnInit {
       if(x=="ok"){
         this.limpiarInput();  
         this.obtenerCategoria();
+        this.disabledInput=true;
+        this.disabledRegistrar=false;
+        this.disabledActualizar=false;
+        this.disabledCancelar=false;
       }else{
         console.log(x);
       }
@@ -72,6 +76,9 @@ export class CatProductoComponent implements OnInit {
       this.limpiarInput();  
       this.obtenerCategoria();
       this.disabledInput=true;
+      this.disabledRegistrar=false;
+      this.disabledActualizar=false;
+      this.disabledCancelar=false;
     }
       else{
         console.log(x);
@@ -111,10 +118,7 @@ export class CatProductoComponent implements OnInit {
   }
 
   deleteCategoria(){
-    console.log(this.MntCatProducto);
     this.CatProducto.deleteCatProducto(this.MntCatProducto).subscribe(x=>{
-      
-    console.log(this.MntCatProducto);
       if(x=="ok"){
       this.obtenerCategoria();
       this.disabledInput=true;
@@ -123,5 +127,21 @@ export class CatProductoComponent implements OnInit {
       console.log(x);
     } 
   });
+  }
+  Activarmodal(template: TemplateRef<any>,obj){
+    this.MntCatProducto.categoriaId=obj.categoriaId;
+    this.nombreActividad=obj.nombre;
+    this.modalRef = this.modalService.show(template);
+  }
+
+  activarCategoria(){
+    this.CatProducto.activarCatProducto(this.MntCatProducto).subscribe(x=>{
+      if(x=="ok"){
+        this.obtenerCategoria();
+        this.modalRef.hide();
+      }else{
+        console.log(x);
+      }
+    })
   }
 }
