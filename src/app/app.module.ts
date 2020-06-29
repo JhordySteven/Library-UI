@@ -14,6 +14,7 @@ import { CatProductoComponent } from './componentes/cat-producto/cat-producto.co
 import { MarcaProductoComponent } from './componentes/marca-producto/marca-producto.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { MntPedidoComponent } from './componentes/mnt-pedido/mnt-pedido.component';
+import { MntProductoComponent } from './componentes/mnt-producto/mnt-producto.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MntPedidoComponent } from './componentes/mnt-pedido/mnt-pedido.componen
     MntMenuComponent,
     CatProductoComponent,
     MarcaProductoComponent,
-    MntPedidoComponent
+    MntPedidoComponent,
+    MntProductoComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import { MntMenuComponent } from './componentes/mnt-menu/mnt-menu.component';
 import { PrincipalAdminComponent } from './componentes/principal-admin/principal-admin.component';
 import { CatProductoComponent } from './componentes/cat-producto/cat-producto.component';
 import { MarcaProductoComponent } from './componentes/marca-producto/marca-producto.component';
+import { MntProductoComponent } from './componentes/mnt-producto/mnt-producto.component';
 
 const routes: Routes = [
   {path:'login',component:LoginComponent},
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path:'menu',component:MntMenuComponent},
   {path:'dashboard',component:PrincipalAdminComponent},
   {path:'catProducto',component:CatProductoComponent},
-  {path:'marcaProducto',component:MarcaProductoComponent}
+  {path:'marcaProducto',component:MarcaProductoComponent},
+  {path:'mntProducto',component:MntProductoComponent}
 ]; 
 
 @NgModule({
