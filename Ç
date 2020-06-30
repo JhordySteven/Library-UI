@@ -1,0 +1,158 @@
+[1mdiff --git a/src/app/Service/cat-producto.service.ts b/src/app/Service/cat-producto.service.ts[m
+[1mindex 2b288f7..1b2a883 100644[m
+[1m--- a/src/app/Service/cat-producto.service.ts[m
+[1m+++ b/src/app/Service/cat-producto.service.ts[m
+[36m@@ -12,7 +12,8 @@[m [mexport class CatProductoService {[m
+     return this.http.get(RutaMvc+"listarCatProducto"); [m
+   }[m
+   registrarCatProducto(categoria:any):Observable<any>{[m
+[31m-    return this.http.post(RutaMvc+"mntCatProducto",categoria,{responseType: 'text'});[m
+[32m+[m[32m    return this.http.post(RutaMvc+"mntCatProducto",categoria,[m
+[32m+[m[32m    {responseType: 'text'});[m
+   }[m
+   updateCatProducto(categoria:any):Observable<any>{[m
+     return this.http.put(RutaMvc+"updtCatProducto",categoria,{responseType: 'text'});[m
+[36m@@ -20,7 +21,4 @@[m [mexport class CatProductoService {[m
+   deleteCatProducto(categoria:any):Observable<any>{[m
+     return this.http.put(RutaMvc+"deleteCatProducto",categoria,{responseType: 'text'});[m
+   }[m
+[31m-  activarCatProducto(categoria:any):Observable<any>{[m
+[31m-    return this.http.put(RutaMvc+"activeCatProducto",categoria,{responseType: 'text'});[m
+[31m-  }[m
+ } [m
+[1mdiff --git a/src/app/Service/marca-producto.service.spec.ts b/src/app/Service/marca-producto.service.spec.ts[m
+[1mdeleted file mode 100644[m
+[1mindex 868c6ce..0000000[m
+[1m--- a/src/app/Service/marca-producto.service.spec.ts[m
+[1m+++ /dev/null[m
+[36m@@ -1,12 +0,0 @@[m
+[31m-import { TestBed } from '@angular/core/testing';[m
+[31m-[m
+[31m-import { MarcaProductoService } from './marca-producto.service';[m
+[31m-[m
+[31m-describe('MarcaProductoService', () => {[m
+[31m-  beforeEach(() => TestBed.configureTestingModule({}));[m
+[31m-[m
+[31m-  it('should be created', () => {[m
+[31m-    const service: MarcaProductoService = TestBed.get(MarcaProductoService);[m
+[31m-    expect(service).toBeTruthy();[m
+[31m-  });[m
+[31m-});[m
+[1mdiff --git a/src/app/Service/marca-producto.service.ts b/src/app/Service/marca-producto.service.ts[m
+[1mdeleted file mode 100644[m
+[1mindex f9aa503..0000000[m
+[1m--- a/src/app/Service/marca-producto.service.ts[m
+[1m+++ /dev/null[m
+[36m@@ -1,28 +0,0 @@[m
+[31m-import { Injectable } from '@angular/core';[m
+[31m-import{HttpClient} from '@angular/common/http';[m
+[31m-import{RutaMvc} from './General';[m
+[31m-[m
+[31m-@Injectable({[m
+[31m-  providedIn: 'root'[m
+[31m-})[m
+[31m-export class MarcaProductoService {[m
+[31m-[m
+[31m-  constructor(private http:HttpClient) { }[m
+[31m-[m
+[31m-  obtenerMarcaProducto(){[m
+[31m-    return this.http.get(RutaMvc+"listarMarcaProducto");[m
+[31m-  }[m
+[31m-  registrarMarcaProducto(marca:any){[m
+[31m-    return this.http.post(RutaMvc+"addMarcaProducto",marca,{responseType: 'text'});  [m
+[31m-  }[m
+[31m-  updateMarcaProducto(marca:any){[m
+[31m-    return this.http.put(RutaMvc+"updateMarcaProducto",marca,{responseType: 'text'});[m
+[31m-  }[m
+[31m-  activarMarcaProducto(marca:any){[m
+[31m-    return this.http.put(RutaMvc+"activateMarcaProducto",marca,{responseType: 'text'});[m
+[31m-  }[m
+[31m-  deleteMarcaProducto(marca:any){[m
+[31m-    return this.http.put(RutaMvc+"deleteMarcaProducto",marca,{responseType: 'text'});[m
+[31m-  }[m
+[31m-[m
+[31m-}[m
+[1mdiff --git a/src/app/app-routing.module.ts b/src/app/app-routing.module.ts[m
+[1mindex 0a35748..1357ac1 100644[m
+[1m--- a/src/app/app-routing.module.ts[m
+[1m+++ b/src/app/app-routing.module.ts[m
+[36m@@ -6,7 +6,6 @@[m [mimport { MntMenuComponent } from './componentes/mnt-menu/mnt-menu.component';[m
+ import { PrincipalAdminComponent } from './componentes/principal-admin/principal-admin.component';[m
+ import { CatProductoComponent } from './componentes/cat-producto/cat-producto.component';[m
+ import { MarcaProductoComponent } from './componentes/marca-producto/marca-producto.component';[m
+[31m-import { MntProductoComponent } from './componentes/mnt-producto/mnt-producto.component';[m
+ [m
+ const routes: Routes = [[m
+   {path:'login',component:LoginComponent},[m
+[36m@@ -14,8 +13,7 @@[m [mconst routes: Routes = [[m
+   {path:'menu',component:MntMenuComponent},[m
+   {path:'dashboard',component:PrincipalAdminComponent},[m
+   {path:'catProducto',component:CatProductoComponent},[m
+[31m-  {path:'marcaProducto',component:MarcaProductoComponent},[m
+[31m-  {path:'mntProducto',component:MntProductoComponent}[m
+[32m+[m[32m  {path:'marcaProducto',component:MarcaProductoComponent}[m
+ ]; [m
+ [m
+ @NgModule({[m
+[1mdiff --git a/src/app/app.component.html b/src/app/app.component.html[m
+[1mindex c9d1423..9af5c1a 100644[m
+[1m--- a/src/app/app.component.html[m
+[1m+++ b/src/app/app.component.html[m
+[36m@@ -1,4 +1,3 @@[m
+ [m
+ [m
+[31m-[m
+ <router-outlet></router-outlet>[m
+\ No newline at end of file[m
+[1mdiff --git a/src/app/app.module.ts b/src/app/app.module.ts[m
+[1mindex 1663dfd..f32065a 100644[m
+[1m--- a/src/app/app.module.ts[m
+[1m+++ b/src/app/app.module.ts[m
+[36m@@ -14,7 +14,6 @@[m [mimport { CatProductoComponent } from './componentes/cat-producto/cat-producto.co[m
+ import { MarcaProductoComponent } from './componentes/marca-producto/marca-producto.component';[m
+ import {NgxPaginationModule} from 'ngx-pagination';[m
+ import { MntPedidoComponent } from './componentes/mnt-pedido/mnt-pedido.component';[m
+[31m-import { MntProductoComponent } from './componentes/mnt-producto/mnt-producto.component';[m
+ [m
+ @NgModule({[m
+   declarations: [[m
+[36m@@ -25,8 +24,7 @@[m [mimport { MntProductoComponent } from './componentes/mnt-producto/mnt-producto.co[m
+     MntMenuComponent,[m
+     CatProductoComponent,[m
+     MarcaProductoComponent,[m
+[31m-    MntPedidoComponent,[m
+[31m-    MntProductoComponent[m
+[32m+[m[32m    MntPedidoComponent[m
+   ],[m
+   imports: [[m
+     BrowserModule,[m
+[1mdiff --git a/src/app/componentes/cat-producto/cat-producto.component.html b/src/app/componentes/cat-producto/cat-producto.component.html[m
+[1mindex 0f23111..8206653 100644[m
+[1m--- a/src/app/componentes/cat-producto/cat-producto.component.html[m
+[1m+++ b/src/app/componentes/cat-producto/cat-producto.component.html[m
+[36m@@ -13,7 +13,7 @@[m
+               <thead style="background: #1864ab;color: white;">[m
+                 <tr>[m
+                   <th class="text-center">#</th>[m
+[31m-                  <th class="text-center">Nombre Categoria</th>[m
+[32m+[m[32m                  <th class="text-center">Nombre</th>[m
+                   <th class="text-center">Estado</th>[m
+                   <th></th>[m
+                 </tr>[m
+[36m@@ -28,8 +28,8 @@[m
+                   <th class="text-center">{{categoria.estado}}</th>[m
+                   <th class="text-center">[m
+                     <button class="btn btn-warning btn-xs" (click)="obtenerDatos(categoria)" title="actualizar" style="margin-right: 5px;"><i class="fas fa-pen-alt"></i></button>[m
+[31m-                    <button *ngIf="categoria.estado==1" title="eliminar" class="btn btn-danger btn-xs" style="margin-right: 5px;" (click)="ModalEliminacion(modalEliminacion,categoria)"><i class="fas fa-trash-alt"></i></button>[m
+[31m-                    <button *ngIf="categoria.estado==0" class="btn btn-info btn-xs" title="activar" (click)="Activarmodal(modalActivar,categoria)" style="margin-right: 5px;"><i class="fas fa-check-square"></i></button>[m
+[32m+[m[32m                    <button title="eliminar" class="btn btn-danger btn-xs" style="margin-right: 5px;" (click)="ModalEliminacion(modalEliminacion,categoria)"><i class="fas fa-trash-alt"></i></button>[m
+[32m+[m[32m                    <button class="btn btn-info btn-xs" title="activar" style="margin-right: 5px;"><i class="fas fa-check-square"></i></button>[m
+                   </th>[m
+                 </tr>[m
+               </tbody>[m
+[36m@@ -85,20 +85,4 @@[m
+     <button type="button" class="btn btn-primary" (click)="deleteCategoria()">Aceptar</button>[m
+     <button type="button" class="btn btn-light" (click)="modalRef.hide()">Cancelar</button>[m
+   </div>[m
+[31m-</ng-template>[m
+[31m-

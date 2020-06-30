@@ -54,7 +54,7 @@
                 </div>
                 <div class="col-md-12">
                   <span>Foto:</span>
-                  <input [disabled]="disabledInput"  type="file" class="form-control">
+                  <input [disabled]="disabledInput" [(ngModel)]="foto" type="file" class="form-control">
                 </div>
                 <div class="col-md-12" style="margin-top: 10px;">
                   <span>Nombre:</span>
@@ -87,7 +87,7 @@
                     </div>
                 </div>
                 <div class="col-md-12" style="margin-bottom: 10px;">
-                  <button *ngIf="disabledRegistrar" type="button" (click)="registrarCategoria(MntCatProducto)" class="btn btn-success btn-block">Registrar</button>
+                  <button type="button" (click)="subirfoto(foto)" class="btn btn-success btn-block">Registrar</button>
                   <button *ngIf="disabledActualizar" type="button" (click)="actualizarCategoria(MntCatProducto)" class="btn btn-warning btn-block">Actualizar</button>
                   <button *ngIf="disabledCancelar" type="button" class="btn btn-secondary btn-block" (click)="cancelar()">Cancelar</button>
                 </div>

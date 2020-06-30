@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import{CatProductoService} from "../../Service/cat-producto.service";
 import{MarcaProductoService} from "../../Service/marca-producto.service";
+import{MntProductoService} from "../../Service/mnt-producto.service";
 
 @Component({
   selector: 'app-mnt-producto',
@@ -9,7 +10,8 @@ import{MarcaProductoService} from "../../Service/marca-producto.service";
 })
 export class MntProductoComponent implements OnInit {
 
-  constructor(private categoria:CatProductoService,private marca:MarcaProductoService) { }
+  constructor(private categoria:CatProductoService,private marca:MarcaProductoService,
+              private producto:MntProductoService) { }
 
   ngOnInit() {
     this.obtenerCategoria();
@@ -29,4 +31,11 @@ export class MntProductoComponent implements OnInit {
   });
   }
 
+  foto:any;
+  subirfoto(obj){
+    console.log(obj);
+    this.producto.subirFoto(obj).subscribe(x=>{
+      console.log(x);
+    })
+  }
 }
