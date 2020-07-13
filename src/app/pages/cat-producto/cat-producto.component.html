@@ -1,6 +1,4 @@
-<app-principal-admin></app-principal-admin>
 
-<div class="content-wrapper" style="padding: 20px;">
        <div class="col-md-12" style="padding: 10px 0;overflow: hidden;">
         <div class="col-md-2" style="float:right;overflow: hidden;padding: 10px;"> 
             <button type="button" class="btn btn-info" style="float: right;" (click)="agregarCat()"><i class="fas fa-plus"></i> Agregar</button>
@@ -13,11 +11,8 @@
               <thead style="background: #1864ab;color: white;">
                 <tr>
                   <th class="text-center">#</th>
-                  <th class="text-center">Nombre Producto</th>
-                  <th class="text-center">categoria</th>
-                  <th class="text-center">marca</th>
-                  <th class="text-center">precio</th>
-                  <th class="text-center">stock</th>
+                  <th class="text-center">Nombre Categoria</th>
+                  <th class="text-center">Estado</th>
                   <th></th>
                 </tr>
               </thead>
@@ -47,44 +42,21 @@
                 <h6 class="text-center" style="color: white;margin:auto;line-height:45px;vertical-align:middle;">Registrar Categoria</h6>
             </div>
             <div class="card-body p-0" style="padding: 20px;overflow: hidden">
-              <div class="col-md-12" style="float: left;padding-bottom: 10px;"> 
+              <div class="col-md-12" style="float: left;"> 
                 <div class="col-md-12"  *ngIf="false">
                   <span>Id:</span>
-                  <input  type="text" class="form-control">
+                  <input [(ngModel)]="MntCatProducto.categoriaId" type="text" class="form-control">
                 </div>
                 <div class="col-md-12">
-                  <span>Foto:</span>
-                  <input [disabled]="disabledInput"  type="file" class="form-control">
+                  <span>Categoria:</span>
+                  <input [disabled]="disabledInput" [(ngModel)]="MntCatProducto.nombre" type="text" placeholder="Ingresar categorias" class="form-control">
                 </div>
                 <div class="col-md-12" style="margin-top: 10px;">
-                  <span>Nombre:</span>
-                 <input [disabled]="disabledInput" type="text" class="form-control" placeholder="Ingresar Nombre">
-                </div>
-                <div class="col-md-12" style="margin-top: 10px;">
-                    <span>Categoria:</span>
-                        <select class="form-control">
-                            <option>::Seleccione::</option>
-                            <option *ngFor="let c of Categoria" value="c.categoriaId">{{c.nombre}}</option>
-                        </select>
-                </div>
-                <div class="col-md-12" style="margin-top: 10px;">
-                    <span>Marca:</span>
-                    <div class="form-group">
-                        <select class="form-control">
-                            <option>::Seleccione::</option>
-                            <option *ngFor="let m of Marca" value="m.marcaProductoId">{{m.nombre}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-12" style="margin-top: 10px;">
-                    <div class="col-md-6" style="float: left;">
-                        <span>Precio:</span>
-                        <input [disabled]="disabledInput" type="text" class="form-control" >
-                    </div>
-                    <div class="col-md-6" style="float: left;">
-                        <span>Stock:</span>
-                        <input [disabled]="disabledInput" type="text" class="form-control" >
-                    </div>
+                  <span>Estado:</span>
+                  <div class="form-group">
+                    <input [disabled]="disabledInput" type="checkbox" [(ngModel)]="MntCatProducto.estado"  class="form-control" style="float: left;width: 10%;height: 15px;margin-top: 5px;">
+                    <span>Activo</span>
+                  </div>
                 </div>
                 <div class="col-md-12" style="margin-bottom: 10px;">
                   <button *ngIf="disabledRegistrar" type="button" (click)="registrarCategoria(MntCatProducto)" class="btn btn-success btn-block">Registrar</button>
@@ -95,7 +67,6 @@
             </div>
         </div>
     </div>
-</div>
 
 <ng-template #modalEliminacion>
   <div class="modal-header" style="background: #fa5252;">

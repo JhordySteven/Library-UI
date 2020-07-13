@@ -1,6 +1,5 @@
 import { Component, OnInit,TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { MenuService } from "../../Service/menu.service";
 @Component({
   selector: 'app-mnt-menu',
   templateUrl: './mnt-menu.component.html',
@@ -8,7 +7,7 @@ import { MenuService } from "../../Service/menu.service";
 })
 export class MntMenuComponent implements OnInit {
   modalRef: BsModalRef;
-  constructor(private modalService: BsModalService,private menu:MenuService) { }
+  constructor(private modalService: BsModalService) { }
   
 
   ngOnInit() {

@@ -1,6 +1,6 @@
 import { Component,OnInit,TemplateRef } from '@angular/core';
-import{CatProductoService} from "../../Service/cat-producto.service";
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ApiRestService } from 'src/app/Service/api-rest.service';
 
 @Component({
   selector: 'app-cat-producto',
@@ -9,7 +9,8 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class CatProductoComponent implements OnInit {
   
-  constructor(private CatProducto:CatProductoService,private modalService: BsModalService) { }
+  constructor(private modalService: BsModalService,
+              private fapiRest:ApiRestService) { }
   ngOnInit() {
     this.obtenerCategoria();
   }
@@ -29,7 +30,10 @@ export class CatProductoComponent implements OnInit {
     }
 
   obtenerCategoria(){
-    this.CatProducto.obtenerCategoria().subscribe(x=>{
+    /*this.CatProducto.obtenerCategoria().subscribe(x=>{
+      this.categoriaProducto=x[0];
+    })*/
+    this.fapiRest.fapiGet('listarCatProducto').subscribe(x=>{
       this.categoriaProducto=x[0];
     })
   }
@@ -40,7 +44,19 @@ export class CatProductoComponent implements OnInit {
     }else{
       this.MntCatProducto.estado=0;
     }
-    this.CatProducto.registrarCatProducto(this.MntCatProducto).subscribe(x=>{
+    /*this.CatProducto.registrarCatProducto(this.MntCatProducto).subscribe(x=>{
+      if(x=="ok"){
+        this.limpiarInput();  
+        this.obtenerCategoria();
+        this.disabledInput=true;
+        this.disabledRegistrar=false;
+        this.disabledActualizar=false;
+        this.disabledCancelar=false;
+      }else{
+        console.log(x);
+      }
+    })*/
+    this.fapiRest.fapiPost('mntCatProducto',this.MntCatProducto).subscribe(x=>{
       if(x=="ok"){
         this.limpiarInput();  
         this.obtenerCategoria();
@@ -71,7 +87,22 @@ export class CatProductoComponent implements OnInit {
     }else{
       this.MntCatProducto.estado=0;
     }
+    /*
     this.CatProducto.updateCatProducto(this.MntCatProducto).subscribe(x=>{
+      if(x=="ok"){
+      this.limpiarInput();  
+      this.obtenerCategoria();
+      this.disabledInput=true;
+      this.disabledRegistrar=false;
+      this.disabledActualizar=false;
+      this.disabledCancelar=false;
+    }
+      else{
+        console.log(x);
+      }
+    }) */
+    
+    this.fapiRest.fapiPut('updtCatProducto',this.MntCatProducto).subscribe(x=>{
       if(x=="ok"){
       this.limpiarInput();  
       this.obtenerCategoria();
@@ -118,7 +149,7 @@ export class CatProductoComponent implements OnInit {
   }
 
   deleteCategoria(){
-    this.CatProducto.deleteCatProducto(this.MntCatProducto).subscribe(x=>{
+    /*this.CatProducto.deleteCatProducto(this.MntCatProducto).subscribe(x=>{
       if(x=="ok"){
       this.obtenerCategoria();
       this.disabledInput=true;
@@ -126,7 +157,16 @@ export class CatProductoComponent implements OnInit {
     }else{
       console.log(x);
     } 
-  });
+  }); */
+  this.fapiRest.fapiPut('deleteCatProducto',this.MntCatProducto).subscribe(x=>{
+    if(x=="ok"){
+    this.obtenerCategoria();
+    this.disabledInput=true;
+    this.modalRef.hide();
+  }else{
+    console.log(x);
+  } 
+});
   }
   Activarmodal(template: TemplateRef<any>,obj){
     this.MntCatProducto.categoriaId=obj.categoriaId;
@@ -135,7 +175,15 @@ export class CatProductoComponent implements OnInit {
   }
 
   activarCategoria(){
-    this.CatProducto.activarCatProducto(this.MntCatProducto).subscribe(x=>{
+    /*this.CatProducto.activarCatProducto(this.MntCatProducto).subscribe(x=>{
+      if(x=="ok"){
+        this.obtenerCategoria();
+        this.modalRef.hide();
+      }else{
+        console.log(x);
+      }
+    })*/
+    this.fapiRest.fapiPut('activeCatProducto',this.MntCatProducto).subscribe(x=>{
       if(x=="ok"){
         this.obtenerCategoria();
         this.modalRef.hide();

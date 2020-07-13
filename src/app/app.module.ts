@@ -5,28 +5,17 @@ import { FormsModule }   from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './componentes/login/login.component';
-import { PrincipalComponent } from './componentes/principal/principal.component';
-import { PrincipalAdminComponent } from './componentes/principal-admin/principal-admin.component';
-import { MntMenuComponent } from './componentes/mnt-menu/mnt-menu.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { HttpClientModule } from "@angular/common/http";
-import { CatProductoComponent } from './componentes/cat-producto/cat-producto.component';
-import { MarcaProductoComponent } from './componentes/marca-producto/marca-producto.component';
 import {NgxPaginationModule} from 'ngx-pagination';
-import { MntPedidoComponent } from './componentes/mnt-pedido/mnt-pedido.component';
-import { MntProductoComponent } from './componentes/mnt-producto/mnt-producto.component';
+import { ComponentsModule } from './componentes/components.module';
+import { PagesModule } from './pages/pages.module';
+import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    PrincipalComponent,
-    PrincipalAdminComponent,
-    MntMenuComponent,
-    CatProductoComponent,
-    MarcaProductoComponent,
-    MntPedidoComponent,
-    MntProductoComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +23,14 @@ import { MntProductoComponent } from './componentes/mnt-producto/mnt-producto.co
     FormsModule,
     ModalModule.forRoot(),
     HttpClientModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ComponentsModule,
+    PagesModule,
+    /*BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut :1000,
+      progressBar:true
+    }) */
   ],
   providers: [],
   bootstrap: [AppComponent]
