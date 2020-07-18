@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiRestService } from 'src/app/Service/api-rest.service';
 import {RutaImg} from '../../Service/general';
-//import { ToastrService } from 'ngx-toastr';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-mnt-producto',
@@ -10,71 +9,93 @@ import {RutaImg} from '../../Service/general';
   styleUrls: ['./mnt-producto.component.css']
 })
 export class MntProductoComponent implements OnInit {
- 
-  constructor(private fapiRest:ApiRestService/*,private toast:ToastrService */) { }
-
+  constructor(private fapiRest:ApiRestService,private toast:ToastrService) { }
+  
   ngOnInit() {
+    this.Producto;
     this.obtenerCategoria();
     this.obtenerMarca();
     this.obtenerImgProducto();
+    this.obtenerProducto();
+    
   }
- 
-  ruta=RutaImg;
 
+  ruta=RutaImg;
   Producto={
-    'productoId':0,
-    'categoriaId':'',
+    'productoId': 0,
+    'categoriaId':0,
     'nombre':'',
     'precioUnidad':0,
     'stock':0,
     'fechaRegistro':'',
     'foto':'',
-    'marcaProductoId':'',
-    'estado':1
+    'marcaProductoId':0,
+    'estado':0
   }
   Categoria:any;
   Marca:any;
+  archivo=null;
+  img:any;
+  objProducto:any;
+
   obtenerCategoria(){
     this.fapiRest.fapiGet('listarCatProducto').subscribe(x=>{
       this.Categoria=x[0];
-  }); 
+    }); 
   }
+
   obtenerMarca(){
   this.fapiRest.fapiGet('listarMarcaProducto').subscribe(x=>{
     this.Marca=x[0];
-}); 
+    }); 
   }
-  archivo=null;
+  
   subirProducto(){
-    console.log(this.archivo);
     const formData=new FormData();
-    formData.append('archivo',this.archivo);
-    console.log(this.archivo);
-    /*this.fapiRest.fapiPost('subir',formData) .subscribe(x=>{
-      console.log(x);
-    })*/
+    formData.append('archivo',this.archivo[0]);
+    this.fapiRest.fapiPost('subir',formData) .subscribe(x=>{
+      if(x=='ok'){
+        this.toast.success('Archivo subido correctamente','¡AVISO!');
+      }else{
+        this.toast.error('El archivo no se subido','¡AVISO!');
+      }
+    })
   }
 
-  img:any;
   obtenerImgProducto(){
     this.fapiRest.fapiGet('verfotos').subscribe(x=>{
-      console.log(x);
       this.img= RutaImg+x ;
+      console.log('imagen');
       console.log(this.img);
     })
   }
-  registrarProducto(){
-    debugger
-    let array1=this.archivo.split('fakepath');
-    let foto1=array1[1].substring(1);
-    this.Producto.foto=foto1;
-    console.log(this.Producto);
+
+  registrarProducto(obj){
+    this.Producto.categoriaId=parseInt(obj.categoriaId);
+    this.Producto.marcaProductoId=parseInt(obj.marcaProductoId);
+    this.Producto.precioUnidad=parseFloat(obj.precioUnidad);
+    this.Producto.stock=parseInt(obj.stock);
+
     this.fapiRest.fapiPost('addProducto',this.Producto).subscribe(x=>{
-      console.log(x);
       if(x=='ok'){
-        //this.toast.success('Se registro correctamente.','AVISO');
+        this.subirProducto();
+        this.toast.success('Se registro correctamente.','AVISO');
       }else{
-        //this.toast.warning('algo no salio bien....','AVISO');
+        this.toast.warning('algo no salio bien....','AVISO');
+      }
+    })
+  }
+
+  selectFile(event){
+    this.archivo=event.target.files;
+    this.Producto.foto=this.archivo[0].name;
+  }
+
+  obtenerProducto(){
+    this.fapiRest.fapiGet('listarProducto').subscribe(x=>{
+      this.objProducto=x[0];
+      for (let i = 0; i < this.objProducto.length; i++) {
+        this.objProducto[i].foto=RutaImg+this.objProducto[i].foto;
       }
     })
   }

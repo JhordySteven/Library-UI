@@ -10,7 +10,9 @@ import { HttpClientModule } from "@angular/common/http";
 import {NgxPaginationModule} from 'ngx-pagination';
 import { ComponentsModule } from './componentes/components.module';
 import { PagesModule } from './pages/pages.module';
-import { from } from 'rxjs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {ToastrModule} from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -26,11 +28,11 @@ import { from } from 'rxjs';
     NgxPaginationModule,
     ComponentsModule,
     PagesModule,
-    /*BrowserAnimationsModule,
+    BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut :1000,
       progressBar:true
-    }) */
+    }) 
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -8,9 +8,9 @@ import { MntProductoComponent } from './mnt-producto/mnt-producto.component';
 import { MntMenuComponent } from './mnt-menu/mnt-menu.component';
 import { MntPedidoComponent } from './mnt-pedido/mnt-pedido.component';
 import { CatProductoComponent } from './cat-producto/cat-producto.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {ToastrModule} from 'ngx-toastr';
 
-//import{BrowserAnimationsModule} from '@angular/platform-browser/animations';
-//import{ToastrModule} from 'ngx-toastr';
 
 
 
@@ -23,8 +23,8 @@ import { CatProductoComponent } from './cat-producto/cat-producto.component';
     CommonModule,
     FormsModule,
     NgxPaginationModule,
-    //BrowserAnimationsModule,
-    //ToastrModule.forRoot()
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],exports:[
     MarcaProductoComponent,
     MntProductoComponent,
