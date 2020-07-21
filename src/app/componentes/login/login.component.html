@@ -1,9 +1,9 @@
 
 
 <div style="border: 1px solid black;" class="cuerpo">
-    <div class="log">
+    <div class="log" *ngIf="verModalLogin">
         <div style="overflow: hidden;">
-            <img style="display: block;width: 50%;height: 50%;margin: 0 auto;" src="https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png">
+            <img style="display: block;width: 50%;height: 50%;margin: 0 auto;" src="../../../assets/user_login.png">
         </div>
         <div style="padding: 5px;overflow: hidden;">
             <div class="form-group" style="margin-bottom: 3px;">
@@ -15,7 +15,55 @@
                 <input placeholder="Ingresar Password" type="password" class="form-control">
             </div>
             <button class="btn btn-success btn-block">Iniciar Sesión</button>
-            <a href="#" style="text-align: center;display: block;">Cambiar Contraseña</a>
+            <button class="btn btn-dark btn-block" (click)="crearCuenta()">Crear cuenta</button>
         </div>
     </div>
+
+    <div class="log" *ngIf="verModalRegister">
+
+        <div class="izquierda" style="float: left;width: 50%;padding: 10px;">
+                <div class="form-group" style="margin-bottom: 3px;overflow: hidden;" >
+                    <input type="file" class="form-control" *ngIf="false">
+                    <img src="../../../assets/user_login.png" style="width: 75%;height: 190px;margin: 0 auto; margin-left: auto;
+                    margin-right: auto;
+                    display: block;">
+                </div>
+                <div class="form-group" style="margin-bottom: 3px;">
+                    <label>Usuario:</label>
+                    <input placeholder="Ingresar Usuario" type="text" class="form-control">
+                </div>
+                <div class="form-group" style="margin-bottom: 5px;">
+                    <label>Password:</label>
+                    <input placeholder="Ingresar Password" type="password" class="form-control">
+                </div>
+        </div>
+        <div class="derecha" style="float: left;width: 50%;padding: 10px;">
+            <div class="form-group" style="margin-bottom: 3px;">
+                <label>Nombres:</label>
+                <input placeholder="Ingresar Usuario" type="text" class="form-control">
+            </div>
+            <div class="form-group" style="margin-bottom: 3px;">
+                <label>Apellidos:</label>
+                <input placeholder="Ingresar Usuario" type="text" class="form-control">
+            </div>
+            <div class="form-group" style="margin-bottom: 3px;">
+                <label>fecha Nacimiento:</label>
+                <input type="date" class="form-control">
+            </div>
+            <div class="form-group" style="margin-bottom: 3px;">
+                <label>sexo:</label>
+                <select class="form-control">
+                    <option value=''>::Seleccione::</option>
+                    <option value='M'>Masculino</option>
+                    <option value='F'>Femenino</option>
+                </select>
+            </div>
+            <button class="btn btn-success btn-block" style="margin-top: 10px;">Registrar</button>
+        </div>       
+    </div>
+
 </div>
+
+    
+
+

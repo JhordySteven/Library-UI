@@ -1,6 +1,7 @@
 import { Component, TemplateRef,OnInit} from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import{MarcaProductoService} from "../../Service/marca-producto.service";
+import { ApiRestService } from 'src/app/Service/api-rest.service';
+
 
 @Component({
   selector: 'app-marca-producto',
@@ -8,11 +9,22 @@ import{MarcaProductoService} from "../../Service/marca-producto.service";
   styleUrls: ['./marca-producto.component.css']
 })
 export class MarcaProductoComponent implements OnInit {
-  constructor(private modalService: BsModalService,private marcaProducto:MarcaProductoService) { }
+  constructor(private modalService: BsModalService,
+              private fapiRest:ApiRestService) { }
 
   ngOnInit() {
     this.obtenerMarca();
   }
+
+  estado=[{
+    id:1,
+    nombre:'activo'
+  },{
+    id:0,
+    nombre:'inactivo'
+  }
+  ]
+
 
   total:number;
   p: number = 1;
@@ -25,22 +37,40 @@ export class MarcaProductoComponent implements OnInit {
   MntMarcaProducto={
       'marcaProductoId':0,
       'nombre':'',
-      'estado':0
+      'estado': ''
     }
 
-    obtenerMarca(){
-      this.marcaProducto.obtenerMarcaProducto().subscribe(x=>{
+    //listado de marca
+  obtenerMarca(){
+      /*this.marcaProducto.obtenerMarcaProducto().subscribe(x=>{
+        this.marcaProductos=x[0];
+      })*/
+      this.fapiRest.fapiGet('listarMarcaProducto').subscribe(x=>{
         this.marcaProductos=x[0];
       })
     }
+
+    //registro de marca
     registrarMarca(obj){
       console.log(obj);
       if(obj.estado==true){
-        this.MntMarcaProducto.estado=1;
+        this.MntMarcaProducto.estado='1';
       }else{
-        this.MntMarcaProducto.estado=0;
+        this.MntMarcaProducto.estado='0';
       }
-      this.marcaProducto.registrarMarcaProducto(this.MntMarcaProducto).subscribe(x=>{
+      /*this.marcaProducto.registrarMarcaProducto(this.MntMarcaProducto).subscribe(x=>{
+        if(x=="ok"){
+          this.limpiarInput();  
+          this.obtenerMarca();
+          this.disabledInput=true;
+          this.disabledRegistrar=false;
+          this.disabledActualizar=false;
+          this.disabledCancelar=false;
+        }else{
+          console.log(x);
+        }
+      }) */
+      this.fapiRest.fapiPost('addMarcaProducto',this.MntMarcaProducto).subscribe(x=>{
         if(x=="ok"){
           this.limpiarInput();  
           this.obtenerMarca();
@@ -53,6 +83,7 @@ export class MarcaProductoComponent implements OnInit {
         }
       })
     } 
+    //obtener datos
     obtenerDatos(obj){
       this.disabledInput=false;
       this.disabledActualizar=true;
@@ -64,14 +95,27 @@ export class MarcaProductoComponent implements OnInit {
         'estado':obj.estado
       }
     }
-  
+    //actualizar marca
     actualizarMarca(obj){
       if(obj.estado==true){
-        this.MntMarcaProducto.estado=1;
+        this.MntMarcaProducto.estado='1';
       }else{
-        this.MntMarcaProducto.estado=0;
+        this.MntMarcaProducto.estado='0';
       }
-      this.marcaProducto.updateMarcaProducto(this.MntMarcaProducto).subscribe(x=>{
+      /*this.marcaProducto.updateMarcaProducto(this.MntMarcaProducto).subscribe(x=>{
+        if(x=="ok"){
+        this.limpiarInput();  
+        this.obtenerMarca();
+        this.disabledInput=true;
+        this.disabledRegistrar=false;
+        this.disabledActualizar=false;
+        this.disabledCancelar=false;
+      }
+        else{
+          console.log(x);
+        }
+      })*/
+      this.fapiRest.fapiPut('updateMarcaProducto',this.MntMarcaProducto).subscribe(x=>{
         if(x=="ok"){
         this.limpiarInput();  
         this.obtenerMarca();
@@ -85,20 +129,22 @@ export class MarcaProductoComponent implements OnInit {
         }
       })
     }
+    //agregar marca
     agregarMarca(){
       this.disabledInput=false;
       this.disabledRegistrar=true;
       this.disabledCancelar=true;
     }
-  
+  //limpiar 
     limpiarInput(){
       this.MntMarcaProducto=
       {
         'marcaProductoId':0,
         'nombre':'',
-        'estado':0
+        'estado':'0'
       }
     }
+    //cancelar
     cancelar(){
       this.disabledInput=true;
       this.limpiarInput();
@@ -118,7 +164,7 @@ export class MarcaProductoComponent implements OnInit {
     }
   
     deleteMarca(){
-      this.marcaProducto.deleteMarcaProducto(this.MntMarcaProducto).subscribe(x=>{
+      /*this.marcaProducto.deleteMarcaProducto(this.MntMarcaProducto).subscribe(x=>{
         if(x=="ok"){
         this.obtenerMarca();
         this.disabledInput=true;
@@ -126,7 +172,16 @@ export class MarcaProductoComponent implements OnInit {
       }else{
         console.log(x);
       } 
-    });
+    })*/
+    this.fapiRest.fapiPut('deleteMarcaProducto',this.MntMarcaProducto).subscribe(x=>{
+      if(x=="ok"){
+      this.obtenerMarca();
+      this.disabledInput=true;
+      this.modalRef.hide();
+    }else{
+      console.log(x);
+    } 
+  })
     }
     Activarmodal(template: TemplateRef<any>,obj){
       this.MntMarcaProducto.marcaProductoId=obj.marcaProductoId;
@@ -135,7 +190,15 @@ export class MarcaProductoComponent implements OnInit {
     }
   
     activarMarca(){
-      this.marcaProducto.activarMarcaProducto(this.MntMarcaProducto).subscribe(x=>{
+      /*this.marcaProducto.activarMarcaProducto(this.MntMarcaProducto).subscribe(x=>{
+        if(x=="ok"){
+          this.obtenerMarca();
+          this.modalRef.hide();
+        }else{
+          console.log(x);
+        }
+      })*/
+      this.fapiRest.fapiPut('activateMarcaProducto',this.MntMarcaProducto).subscribe(x=>{
         if(x=="ok"){
           this.obtenerMarca();
           this.modalRef.hide();
@@ -143,5 +206,6 @@ export class MarcaProductoComponent implements OnInit {
           console.log(x);
         }
       })
+
     }
 }

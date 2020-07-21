@@ -11,5 +11,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
   }
+  verModalLogin=true;
+  verModalRegister=false;
+
+  crearCuenta(){
+    this.verModalLogin=false;
+    this.verModalRegister=true;
+  }
 
 }

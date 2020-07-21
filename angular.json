@@ -26,8 +26,9 @@
             "styles": [
               "node_modules/admin-lte/plugins/fontawesome-free/css/all.min.css",
               "node_modules/admin-lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css",
-              "node_modules/admin-lte/docs_html/assets/css/adminlte.css"
-            ],
+              "node_modules/admin-lte/docs_html/assets/css/adminlte.css",
+              "node_modules/ngx-toastr/toastr-old.css"
+              ],
             "scripts": [
               "node_modules/admin-lte/plugins/jquery/jquery.js",
               "node_modules/admin-lte/plugins/bootstrap/js/bootstrap.bundle.js",
