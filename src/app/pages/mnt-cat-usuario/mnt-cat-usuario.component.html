@@ -1,0 +1,102 @@
+
+       <div class="col-md-12" style="padding: 10px 0;overflow: hidden;">
+        <div class="col-md-2" style="float:right;overflow: hidden;padding: 10px;"> 
+            <button type="button" class="btn btn-info" style="float: right;" (click)="agregarCat()"><i class="fas fa-plus"></i> Agregar</button>
+        </div>
+       </div>
+    <div class="col-md-9" style="overflow: hidden;float: left;">
+        <div class="card">
+          <div class="card-body p-0">
+            <table class="table table-striped" >
+              <thead style="background: #1864ab;color: white;">
+                <tr>
+                  <th class="text-center">#</th>
+                  <th class="text-center">Nombre</th>
+                  <th class="text-center">Estado</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let x of catUsuario | paginate: { id: 'foo',
+                itemsPerPage: 6,
+                currentPage: p,
+                totalItems: total }">
+                  <th class="text-center">{{x.categoriaUsuId}}</th>
+                  <th class="text-center">{{x.nombre}}</th>
+                  <th class="text-center">{{x.estado}}</th>
+                  <th class="text-center">
+                    <button class="btn btn-warning btn-xs" (click)="obtenerDatos(x)" title="actualizar" style="margin-right: 5px;"><i class="fas fa-pen-alt"></i></button>
+                    <button *ngIf="x.estado==1" title="eliminar" class="btn btn-danger btn-xs" style="margin-right: 5px;" (click)="ModalEliminacion(modalEliminacion,x)"><i class="fas fa-trash-alt"></i></button>
+                    <button *ngIf="x.estado==0" class="btn btn-info btn-xs" title="activar" (click)="Activarmodal(modalActivar,x)" style="margin-right: 5px;"><i class="fas fa-check-square"></i></button>
+                    
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+            <pagination-controls id="foo" (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+    </div>
+    <div class="col-md-3" style="float: left">
+        <div class="card">
+            <div class="card-header p-0" style="background: #1864ab;">
+                <h6 class="text-center" style="color: white;margin:auto;line-height:45px;vertical-align:middle;">Registrar Categoria Usuario</h6>
+            </div>
+            <div class="card-body p-0" style="padding: 20px;overflow: hidden">
+              <div class="col-md-12" style="float: left;"> 
+                <div class="col-md-12"  *ngIf="false">
+                  <span>Id:</span>
+                  <input [(ngModel)]="MntCatUsuario.categoriaUsuId" type="text" class="form-control">
+                </div>
+                <div class="col-md-12">
+                  <span>nombre:</span>
+                  <input [disabled]="disabledInput" [(ngModel)]="MntCatUsuario.nombre" type="text" placeholder="Ingresar categorias" class="form-control">
+                </div>
+                <div class="col-md-12" style="margin-top: 10px;">
+                  <span>Estado:</span>
+                  <div class="form-group">
+                    <input [disabled]="disabledInput" type="checkbox" [(ngModel)]="MntCatUsuario.estado"  class="form-control" style="float: left;width: 10%;height: 15px;margin-top: 5px;">
+                    <span>Activo</span>
+                  </div>
+                </div>
+                <div class="col-md-12" style="margin-bottom: 10px;">
+                  <button *ngIf="disabledRegistrar" type="button" (click)="registrarCatUsu(MntCatUsuario)" class="btn btn-success btn-block">Registrar</button>
+                  <button *ngIf="disabledActualizar" type="button" (click)="updateCatUsuario(MntCatUsuario)" class="btn btn-warning btn-block">Actualizar</button>
+                  <button *ngIf="disabledCancelar" type="button" class="btn btn-secondary btn-block" (click)="cancelar()">Cancelar</button>
+                </div>
+               </div>
+            </div>
+        </div>
+    </div>
+
+<ng-template #modalEliminacion>
+  <div class="modal-header" style="background: #fa5252;">
+    <h4 class="modal-title pull-left" style="color: white;">Eliminación</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <span>¿Esta seguro de eliminar la categoria seleccionada ({{nombreActividad}})?</span>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="deleteCategoriaUsu()">Aceptar</button>
+    <button type="button" class="btn btn-light" (click)="modalRef.hide()">Cancelar</button>
+  </div>
+</ng-template>
+
+<ng-template #modalActivar>
+  <div class="modal-header" style="background: #1971c2;">
+    <h4 class="modal-title pull-left" style="color: white;">Activación</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <span>¿Esta seguro de activar la categoria seleccionada ({{nombreActividad}})?</span>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="activarCategoria()">Aceptar</button>
+    <button type="button" class="btn btn-light" (click)="modalRef.hide()">Cancelar</button>
+  </div>
+</ng-template>

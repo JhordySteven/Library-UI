@@ -6,6 +6,7 @@ import { CatProductoComponent } from './pages/cat-producto/cat-producto.componen
 import { MntMenuComponent } from './pages/mnt-menu/mnt-menu.component';
 import { MntPedidoComponent } from './pages/mnt-pedido/mnt-pedido.component';
 import { MntProductoComponent } from './pages/mnt-producto/mnt-producto.component';
+import { MntCatUsuarioComponent } from './pages/mnt-cat-usuario/mnt-cat-usuario.component';
 
 const routes: Routes = [
   {path:'login',component:LoginComponent},
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path:'mntCatProducto',component:CatProductoComponent},
   {path:'mntMenu',component:MntMenuComponent},
   {path:'mntPedido',component:MntPedidoComponent},
-  {path:'mntProducto',component:MntProductoComponent}
+  {path:'mntProducto',component:MntProductoComponent},
+  {path:'mntCatUsuario',component:MntCatUsuarioComponent}
 ]; 
 
 @NgModule({
