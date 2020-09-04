@@ -11,6 +11,7 @@ import { CatProductoComponent } from './cat-producto/cat-producto.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import { MntCatUsuarioComponent } from './mnt-cat-usuario/mnt-cat-usuario.component';
+import { MntUsuarioComponent } from './mnt-usuario/mnt-usuario.component';
 
 
 
@@ -20,7 +21,8 @@ import { MntCatUsuarioComponent } from './mnt-cat-usuario/mnt-cat-usuario.compon
     MntProductoComponent,
   MntMenuComponent,MntPedidoComponent,
   CatProductoComponent,
-  MntCatUsuarioComponent],
+  MntCatUsuarioComponent,
+  MntUsuarioComponent],
   imports: [
     CommonModule,
     FormsModule,

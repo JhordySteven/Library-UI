@@ -10,7 +10,7 @@ import { MntCatUsuarioComponent } from './pages/mnt-cat-usuario/mnt-cat-usuario.
 
 const routes: Routes = [
   {path:'login',component:LoginComponent},
-  {path:'mntMarca',component:MarcaProductoComponent},
+  {path:'mntMarcaProducto',component:MarcaProductoComponent},
   {path:'mntCatProducto',component:CatProductoComponent},
   {path:'mntMenu',component:MntMenuComponent},
   {path:'mntPedido',component:MntPedidoComponent},

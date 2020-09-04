@@ -8,11 +8,11 @@
         <div style="padding: 5px;overflow: hidden;">
             <div class="form-group" style="margin-bottom: 3px;">
                 <label>Usuario:</label>
-                <input placeholder="Ingresar Usuario" type="text" class="form-control">
+                <input placeholder="Ingresar Usuario" [ngModel]="MntLogin.usuario" type="text" class="form-control">
             </div>
             <div class="form-group" style="margin-bottom: 5px;">
                 <label>Password:</label>
-                <input placeholder="Ingresar Password" type="password" class="form-control">
+                <input placeholder="Ingresar Password" [ngModel]="MntLogin.contrasenia" type="password" class="form-control">
             </div>
             <button class="btn btn-success btn-block">Iniciar Sesión</button>
             <button class="btn btn-dark btn-block" (click)="crearCuenta()">Crear cuenta</button>
@@ -23,42 +23,41 @@
 
         <div class="izquierda" style="float: left;width: 50%;padding: 10px;">
                 <div class="form-group" style="margin-bottom: 3px;overflow: hidden;" >
-                    <input type="file" class="form-control" *ngIf="false">
+                    <input  type="file" [(ngModel)]="archivo" (change)="selectFile($event)" class="form-control">
                     <img src="../../../assets/user_login.png" style="width: 75%;height: 190px;margin: 0 auto; margin-left: auto;
                     margin-right: auto;
                     display: block;">
                 </div>
                 <div class="form-group" style="margin-bottom: 3px;">
                     <label>Usuario:</label>
-                    <input placeholder="Ingresar Usuario" type="text" class="form-control">
+                    <input placeholder="Ingresar Usuario" [(ngModel)]="MntLogin.usuario" type="text" class="form-control">
                 </div>
                 <div class="form-group" style="margin-bottom: 5px;">
                     <label>Password:</label>
-                    <input placeholder="Ingresar Password" type="password" class="form-control">
+                    <input placeholder="Ingresar Password" [(ngModel)]="MntLogin.contrasenia" type="password" class="form-control">
                 </div>
         </div>
         <div class="derecha" style="float: left;width: 50%;padding: 10px;">
             <div class="form-group" style="margin-bottom: 3px;">
                 <label>Nombres:</label>
-                <input placeholder="Ingresar Usuario" type="text" class="form-control">
+                <input placeholder="Ingresar Usuario" [(ngModel)]="MntLogin.nombre" type="text" class="form-control">
             </div>
             <div class="form-group" style="margin-bottom: 3px;">
                 <label>Apellidos:</label>
-                <input placeholder="Ingresar Usuario" type="text" class="form-control">
+                <input placeholder="Ingresar Usuario" [(ngModel)]="MntLogin.apellido" type="text" class="form-control">
             </div>
             <div class="form-group" style="margin-bottom: 3px;">
                 <label>fecha Nacimiento:</label>
-                <input type="date" class="form-control">
+                <input type="date" class="form-control" [(ngModel)]="MntLogin.fechaNacimiento">
             </div>
             <div class="form-group" style="margin-bottom: 3px;">
                 <label>sexo:</label>
-                <select class="form-control">
+                <select  class="form-control" [(ngModel)]="MntLogin.sexo">
                     <option value=''>::Seleccione::</option>
-                    <option value='M'>Masculino</option>
-                    <option value='F'>Femenino</option>
+                    <option *ngFor="let item of objSexo" [value]='item.idSexo'>{{item.nombre}}</option>
                 </select>
             </div>
-            <button class="btn btn-success btn-block" style="margin-top: 10px;">Registrar</button>
+            <button class="btn btn-success btn-block" (click)="registrarUsuario(MntLogin)" style="margin-top: 10px;">Registrar</button>
         </div>       
     </div>
 

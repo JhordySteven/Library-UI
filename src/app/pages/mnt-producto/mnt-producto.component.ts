@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,TemplateRef} from '@angular/core';
 import { ApiRestService } from 'src/app/Service/api-rest.service';
 import {RutaImg} from '../../Service/general';
 import { ToastrService } from 'ngx-toastr';
+import { BsModalService,BsModalRef } from 'ngx-bootstrap/modal';
+
 
 @Component({
   selector: 'app-mnt-producto',
@@ -9,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./mnt-producto.component.css']
 })
 export class MntProductoComponent implements OnInit {
-  constructor(private fapiRest:ApiRestService,private toast:ToastrService) { }
+  constructor(private fapiRest:ApiRestService,private toast:ToastrService,private modalService: BsModalService) { }
   
   ngOnInit() {
     this.Producto;
@@ -19,6 +21,7 @@ export class MntProductoComponent implements OnInit {
     this.obtenerProducto();
     
   }
+  modalRef: BsModalRef;
 
   ruta=RutaImg;
   Producto={
@@ -32,11 +35,22 @@ export class MntProductoComponent implements OnInit {
     'marcaProductoId':0,
     'estado':0
   }
+  disabledInput=true;
+  disabledRegistrar=false;
+  disabledActualizar=false;
+  disabledCancelar=false;
   Categoria:any;
   Marca:any;
   archivo=null;
   img:any;
   objProducto:any;
+
+  agregar(){
+    this.disabledInput=false;
+    this.disabledRegistrar=true;
+    this.disabledActualizar=false;
+    this.disabledCancelar=true;
+  }
 
   obtenerCategoria(){
     this.fapiRest.fapiGet('listarCatProducto').subscribe(x=>{
@@ -98,5 +112,50 @@ export class MntProductoComponent implements OnInit {
         this.objProducto[i].foto=RutaImg+this.objProducto[i].foto;
       }
     })
+  }
+
+  obtenerDatos(obj){
+    this.disabledInput=false;
+    this.disabledActualizar=true;
+    this.disabledCancelar=true;
+    this.disabledRegistrar=false;
+    this.Producto={
+      'productoId': obj.productoId,
+      'categoriaId':obj.categoriaId,
+      'nombre':obj.nombre,
+      'precioUnidad':obj.precioUnidad,
+      'stock':obj.stock,
+      'fechaRegistro':'',
+      'foto':obj.foto,
+      'marcaProductoId':obj.marcaProductoId,
+      'estado':obj.estado
+    }
+  }
+  cancelar(){
+    this.disabledInput=true;
+    //this.limpiarInput();
+    if(this.disabledRegistrar==true){
+     this.disabledRegistrar=false;
+     this.disabledCancelar=false; 
+    }else if(this.disabledActualizar==true){
+      this.disabledActualizar=false;
+      this.disabledCancelar=false;
+    }
+  }
+
+  actualizarProducto(){
+    console.log(this.Producto);
+    this.fapiRest.fapiPut('updateProducto',this.Producto).subscribe(x=>{
+      if(x=='ok'){
+        this.subirProducto();
+        this.toast.success('Se actulizo correctamente','¡AVISO!');
+      }else{
+        this.toast.warning('algo no salio bien....','AVISO');
+      }
+    })
+  }
+
+  ModalEliminacion(template: TemplateRef<any>,obj){
+    this.modalRef = this.modalService.show(template);
   }
 }

@@ -11,8 +11,16 @@ export class MntMenuComponent implements OnInit {
   
 
   ngOnInit() {
-    
   }
+
+  menu={
+    idMenu:0,
+    nombre:'',
+    tipoMenu:0,
+    estado:0
+  }
+
+
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }

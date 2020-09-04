@@ -1,7 +1,7 @@
 
        <div class="col-md-12" style="padding: 10px 0;overflow: hidden;">
         <div class="col-md-2" style="float:right;overflow: hidden;padding: 10px;"> 
-            <button type="button" class="btn btn-info" style="float: right;" (click)="agregarCat()"><i class="fas fa-plus"></i> Agregar</button>
+            <button type="button" class="btn btn-info" style="float: right;" (click)="agregar()"><i class="fas fa-plus"></i> Agregar</button>
         </div>
        </div>
     <div class="col-md-9" style="overflow: hidden;float: left;">
@@ -32,11 +32,11 @@
                   <th class="text-center">{{x.precioUnidad}}</th>
                   <th class="text-center">{{x.stock}}</th>
                   <th class="text-center">
-                      <img src="{{x.foto}}" style="width: 30px;height: 25px;">
+                      <img src="{{x.foto}}" style="width: 50px;height: 50px;">
                   </th>
                   <th class="text-center">
-                    <button class="btn btn-warning btn-xs" (click)="obtenerDatos(categoria)" title="actualizar" style="margin-right: 5px;"><i class="fas fa-pen-alt"></i></button>
-                    <button *ngIf="x.estado==1" title="eliminar" class="btn btn-danger btn-xs" style="margin-right: 5px;" (click)="ModalEliminacion(modalEliminacion,categoria)"><i class="fas fa-trash-alt"></i></button>
+                    <button class="btn btn-warning btn-xs" (click)="obtenerDatos(x)" title="actualizar" style="margin-right: 5px;"><i class="fas fa-pen-alt"></i></button>
+                    <button *ngIf="x.estado==1" title="eliminar" class="btn btn-danger btn-xs" style="margin-right: 5px;" (click)="ModalEliminacion(modalEliminacion,x)"><i class="fas fa-trash-alt"></i></button>
                     <button *ngIf="x.estado==0" class="btn btn-info btn-xs" title="activar" (click)="Activarmodal(modalActivar,categoria)" style="margin-right: 5px;"><i class="fas fa-check-square"></i></button>
                   </th>
                 </tr>
@@ -92,8 +92,8 @@
                     </div>
                 </div>
                 <div class="col-md-12" style="margin: 10px 0 10px 0;">
-                  <button  type="button" (click)="registrarProducto(Producto)" class="btn btn-success btn-block">Registrar</button>
-                  <button *ngIf="disabledActualizar" type="button" (click)="actualizarCategoria(MntCatProducto)" class="btn btn-warning btn-block">Actualizar</button>
+                  <button *ngIf="disabledRegistrar"  type="button" (click)="registrarProducto(Producto)" class="btn btn-success btn-block">Registrar</button>
+                  <button *ngIf="disabledActualizar" type="button" (click)="actualizarProducto(Producto)" class="btn btn-warning btn-block">Actualizar</button>
                   <button *ngIf="disabledCancelar" type="button" class="btn btn-secondary btn-block" (click)="cancelar()">Cancelar</button>
                 </div>
                </div>
