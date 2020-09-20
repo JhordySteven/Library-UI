@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import { MntCatUsuarioComponent } from './mnt-cat-usuario/mnt-cat-usuario.component';
 import { MntUsuarioComponent } from './mnt-usuario/mnt-usuario.component';
+import { MntCategoriaMenuComponent } from './mnt-categoria-menu/mnt-categoria-menu.component';
 
 
 
@@ -22,7 +23,8 @@ import { MntUsuarioComponent } from './mnt-usuario/mnt-usuario.component';
   MntMenuComponent,MntPedidoComponent,
   CatProductoComponent,
   MntCatUsuarioComponent,
-  MntUsuarioComponent],
+  MntUsuarioComponent,
+  MntCategoriaMenuComponent],
   imports: [
     CommonModule,
     FormsModule,

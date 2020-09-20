@@ -18,7 +18,7 @@
                   <th></th>
                 </tr>
               </thead>
-              <tbody>
+             <!-- <tbody>
                 <tr *ngFor="let x of objMenu | paginate: { id: 'foo',
                 itemsPerPage: 6,
                 currentPage: p,
@@ -34,7 +34,7 @@
                     <button *ngIf="x.estado==0" class="btn btn-info btn-xs" title="activar" (click)="Activarmodal(modalActivar,x)" style="margin-right: 5px;"><i class="fas fa-check-square"></i></button>
                   </th>
                 </tr>
-              </tbody>
+              </tbody>-->
             </table>
             <pagination-controls id="foo" (pageChange)="p = $event"></pagination-controls>
           </div>

@@ -23,6 +23,8 @@ export class MntCatUsuarioComponent implements OnInit {
   disabledActualizar=false;
   disabledCancelar=false;
   catUsuario:any;
+  subMenu:any;
+  tipoMenu:any;
 
   MntCatUsuario={
     categoriaUsuId:0,
@@ -49,10 +51,11 @@ export class MntCatUsuarioComponent implements OnInit {
     }else{
       this.MntCatUsuario.estado=0;
     }
-    this.fapiRest.fapiPost('mntCatUsuario',this.MntCatUsuario).subscribe(x=>{
+    this.fapiRest.fapiPost('addCatUsuario',this.MntCatUsuario).subscribe(x=>{
         if(x=='ok'){
           this.toast.success('Se registro correctamente.','¡AVISO!');
           this.limpiarInput();
+          this.obtenerCatUsuario();
         }else{
           this.toast.error('Algo no salio bien..','¡AVISO!');
         }
@@ -73,7 +76,7 @@ export class MntCatUsuarioComponent implements OnInit {
     }else{
       this.MntCatUsuario.estado=0;
     }
-    this.fapiRest.fapiPut('updtCatUsuario',this.MntCatUsuario).subscribe(x=>{
+    this.fapiRest.fapiPut('updateCatUsuario',this.MntCatUsuario).subscribe(x=>{
       if(x=='ok'){
         this.toast.success('Se actualizo correctamente.','¡AVISO!');
         this.obtenerCatUsuario();
@@ -123,9 +126,14 @@ export class MntCatUsuarioComponent implements OnInit {
     this.nombreActividad=obj.nombre;
     this.modalRef = this.modalService.show(template);
   }
+  configurar_Menu(template: TemplateRef<any>,obj){
+    this.modalRef = this.modalService.show(template);
+    this.listarSoloMenu();
+    this.listarSubMenu();
+  }
   
   activarCategoria(){
-    this.fapiRest.fapiPut('activeCatUsuario',this.MntCatUsuario).subscribe(x=>{
+    this.fapiRest.fapiPut('activateCatUsuario',this.MntCatUsuario).subscribe(x=>{
       if(x=="ok"){
         this.obtenerCatUsuario();
         this.toast.success('Se activo la categoria correctamente.','¡AVISO!')
@@ -136,4 +144,35 @@ export class MntCatUsuarioComponent implements OnInit {
       }
     })
   }
+  listarSoloMenu(){
+    this.fapiRest.fapiGet('listMenu').subscribe(x=>{
+      console.log(x);
+        this.tipoMenu=x[0];
+    })
+  }
+  
+  listarSubMenu(){
+    this.fapiRest.fapiGet('listSubMenu').subscribe(x=>{
+      console.log(x);
+        this.subMenu=x[0];
+    })
+  }
+
+  objCategoriaMenu={
+    idMenu:0,
+    categoriaUsu:0,
+    estado:0
+  }
+
+  objValueChek=[];
+
+  addCategoriaMenu(){
+    console.log(this.tipoMenu);
+   /*this.fapiRest.fapiPost('addCategoriaMenu',this.objCategoriaMenu).subscribe(x=>{
+      if(x=='ok'){
+        this.toast.success('Se registro correctamente.','¡AVISO!')
+      }
+    }) */
+  }
+
 }

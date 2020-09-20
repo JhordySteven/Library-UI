@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiRestService } from 'src/app/Service/api-rest.service';
 
 @Component({
   selector: 'app-navbar-lateral',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarLateralComponent implements OnInit {
 
-  constructor() { }
+  constructor(private fapi:ApiRestService) { }
+  objMenu:any;
 
   ngOnInit() {
+    this.listarMenu();
   }
 
+  listarMenu(){
+    this.fapi.fapiGet('listarMenu').subscribe(x=>{
+        this.objMenu=x[0];
+    })
+  }
 }

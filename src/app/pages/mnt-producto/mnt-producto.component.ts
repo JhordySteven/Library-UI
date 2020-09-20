@@ -22,7 +22,7 @@ export class MntProductoComponent implements OnInit {
     
   }
   modalRef: BsModalRef;
-
+  nombreActividad="";
   ruta=RutaImg;
   Producto={
     'productoId': 0,
@@ -89,7 +89,6 @@ export class MntProductoComponent implements OnInit {
     this.Producto.marcaProductoId=parseInt(obj.marcaProductoId);
     this.Producto.precioUnidad=parseFloat(obj.precioUnidad);
     this.Producto.stock=parseInt(obj.stock);
-
     this.fapiRest.fapiPost('addProducto',this.Producto).subscribe(x=>{
       if(x=='ok'){
         this.subirProducto();
@@ -144,7 +143,7 @@ export class MntProductoComponent implements OnInit {
   }
 
   actualizarProducto(){
-    console.log(this.Producto);
+    //console.log(this.Producto);
     this.fapiRest.fapiPut('updateProducto',this.Producto).subscribe(x=>{
       if(x=='ok'){
         this.subirProducto();
@@ -157,5 +156,6 @@ export class MntProductoComponent implements OnInit {
 
   ModalEliminacion(template: TemplateRef<any>,obj){
     this.modalRef = this.modalService.show(template);
+    this.nombreActividad=obj.nombre;
   }
 }
